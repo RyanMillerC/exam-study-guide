@@ -1,4 +1,13 @@
-# Red Hat Exam Study Guide
+# Exam Study Guide
+
+(Previously Red Exam Study Guide. Changed repo name since there's AWS study
+material here too.)
+
+## AWS
+
+- [AWS Solutions Architect Associate](AWS-Solutions-Architect-Associate.md)
+
+## Red Hat
 
 - [EX200 - Red Hat Certified System Administrator](EX200.md)
 - [EX240 - Red Hat Certified Specialist in API Management exam](EX240.md)
