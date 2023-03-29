@@ -3,6 +3,7 @@
 | Service | Description |
 | ------- | ----------- |
 | AWS AppFlow | Automate the exchange of data between SaaS vendors and AWS services |
+| AWS AppSync | Scalable GraphQL interface to combine data from multiple sources like DynamoDB, Lambda, and HTTP APIs |
 | AWS Artifact | Compliance-related information and reports |
 | Amazon Athena | Analyze S3 data using SQL queries |
 | AWS Audit Manager | Automated service to produce reports for audits |
@@ -127,7 +128,7 @@
     * Responses to outgoing requests are not subject in incoming request rules
 * Security Groups can be updated while an instance is running
 * Up to 5 Security Groups can be assigned to an EC2 instance
-* Get information about scripts used to bootstrap instances with `http://169.254.169.254/latest/user-data
+* Get information about scripts used to bootstrap instances with `http://169.254.169.254/latest/user-data`
 * Get information about the instance itself with `http://169.254.169.254/latest/meta-data`
 * There are vCPU-based on-demand instance limits per region
     * These service quotas are defaults and can be expanded
@@ -194,11 +195,11 @@
 
 ## NACLs
 
-* NACL is evaluated by rule number **lowest to highest*
+* NACL is evaluated by rule number **lowest to highest**
 * NACL is executed immediately when a matching rule is found
 * Default NACL is Allow
 * Default config for custom NACL is Deny
-* `All Traffic Deny` final rule of default NACL cannot be modified
+* `* All Traffic Deny` final rule of default NACL cannot be modified
 * NACLs are stateless
     * Responses to outgoing requests are subject to NACLs
 
