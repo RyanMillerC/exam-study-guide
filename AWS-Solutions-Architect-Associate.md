@@ -2,6 +2,7 @@
 
 | Service | Description |
 | ------- | ----------- |
+| AWS Amplify | Service for developers to easily deploy full-stack applications to AWS without complicated architectures |
 | AWS AppFlow | Automate the exchange of data between SaaS vendors and AWS services |
 | AWS AppSync | Scalable GraphQL interface to combine data from multiple sources like DynamoDB, Lambda, and HTTP APIs |
 | AWS Artifact | Compliance-related information and reports |
@@ -19,15 +20,20 @@
 | AWS Compute Optimizer | Automated collection of metrics for underutilized compute instances |
 | AWS Control Tower | Set up and govern multi-account environments |
 | AWS Cost and Usage Reports | Detailed cost and spending reports |
+| Amazon Data Lifecycle Manager | Automate the creation, retention, and deletion of EBS snapshots and EBS-backed AMIs |
 | AWS Data Pipeline | Data driven workloads that automatically move data between AWS services |
 | AWS Database Migration Service | Migrate your database to AWS |
 | AWS Detective | Analyze and investigate potential security issues |
+| AWS Device Farm | Real mobile devices hosted on AWS for testing |
 | AWS Direct Connect | Private, direct connection (not internet) between your facilities and AWS |
 | Amazon DocumentDB | NoSQL JSON object document DB compatible with MongoDB workloads |
+| Amazon ECR | Elastic Container Registry |
+| AWS ECS Fargate | Run containers without managing EC2 instances |
+| Amazon EKS | Elastic Kubernetes Service |
 | AWS Elastic Block Storage (EBS) | Block storage for EC2 instances |
 | AWS Elastic Cloud Compute (EC2) | Cloud computing/severs |
+| AWS Elastic Fabric Adapter | Network interface for EC2 instances to enable high inter-node communication at scale |
 | AWS Elastic Map Reduce | Export and import data between DynamoDB instances |
-| AWS ECS Fargate | Run containers without managing EC2 instances |
 | AWS ElastiCache | In-memory, caching service |
 | Amazon Elastic Transcoder | Convert media files into different formats |
 | Amazon EventBridge | Serverless way to string events to connect application components |
@@ -37,13 +43,16 @@
 | Amazon FSx | Highly-performant file systems |
 | Amazon GuardDuty | Security monitoring (via CloudTrail, logs, etc.) for other AWS services |
 | AWS Inspector | Automated security assessment service (vulnerabilities, network exposure, etc.) for workloads |
+| AWS IoT Core | Easy and secure service for connecting IoT devices to the cloud |
 | Amazon Kendra | Intelligent enterprise search powered by machine learning |
 | Amazon Keyspaces | Scalable, highly-available, managed Apache Cassandra compatible database service |
 | AWS Kinesis Data Analytics | Real-time analytics on data |
 | AWS Kinesis Data Firehose | Load streaming data into data stores and anayltics tools |
 | AWS Kinesis Data Streams | Stream log/event data and take action on that data |
 | Amazon Kinesis Video Streams | Stream media content from a large number of devices for anayltics and processing |
+| AWS KMS | Key management service to create and control keys used to encrypt or sign your data |
 | AWS Lex | Build conversational interfaces in applications with natural-language models |
+| AWS License Manager | Manage software licenses and fine-tune licensing costs |
 | AWS Macie | Check for sensitive data in S3 buckets |
 | Amazon MQ | Managed broker service (Like RabbitMQ, ActiveMQ) |
 | AWS Managed Grafana | AWS managed Grafana instance |
@@ -54,24 +63,29 @@
 | AWS Network Firewall | Firewall infrastructure managed by AWS |
 | AWS Organizations | Service to manage existing AWS accounts for multi-account organizations |
 | AWS Personal Health Dashboard | Alerts and guildance when AWS services go down |
+| Amazon Pinpoint | Engage with millions of clusters through direct communication channels |
 | AWS Polly | Text-to-speech service |
 | AWS Quantum Ledger Database (QLDB) | Immutable, cryptographically verifiable log of data changes |
 | AWS Redshift | Fully-managed, petabyte-scale data warehouse |
+| Amazon Rekognition | Image and video recognition and analysis via machine learning |
 | AWS S3 | Simple Storage Service - Object storage |
 | Amazon SageMaker | Build, train, and deploy machine learning models |
+| AWS Secrets Manager | Centrally manage the lifecycle of secrets |
 | AWS Security Hub | Cloud security posture management service |
 | AWS Service Catalog | Catalog of approved services available to users typically deployed through CloudFormation templates |
-| AWS Sheild | DDoS protection service |
+| AWS Shield | DDoS protection service |
 | AWS Snowball | Physical storage device to upload data into and send to Amazon for download into AWS |
 | AWS Snowball Edge | Snowball with compute power for select AWS capabilities |
 | AWS SNS | Simple Notification Service - Send (push) messages and emails |
 | AWS SQS | Simple Queue Service |
-| AWS Step Functions | Workflow orchestation for Lambda |
+| AWS Step Functions | Workflow orchestration for Lambda |
+| Amazon Storage Gateway | Extend on-prem storage into the cloud through iSCSI |
 | AWS STS | Provide trusted users with temporary credentials to access AWS resources |
 | Amazon Textract | Automatically extract printed text, handwriting, and data from any document |
 | AWS Transcribe | Speech-to-text service |
 | AWS Tranaslate | Machine learning service to automate language translation |
 | AWS Trusted Advisor | Realtime guidance to provision resources following best practices |
+| AWS Volume Gateway | Hybrid cloud block storage with local caching |
 | AWS WAF | Web Application Firewall service |
 | AWS X-Ray | Detailed information on Lambda functions |
 
@@ -82,6 +96,12 @@
 ## AppSync
 
 * AppSync supports deploying a GraphQL interface
+
+## Aurora
+
+* Automatically fails over by promoting an existing replica or creating a new primary
+* Aurora Serverless is best for variable workloads
+    * Can configure scaling as needed, including scaling down to 0 ACUs
 
 ## CloudFront
 
@@ -116,6 +136,8 @@
 ## DynamoDB
 
 * Performant key-value database
+* DynamoDB supports autoscaling
+* DynamoDB streams can monitor a table and automatically trigger Lambda functions
 
 ## EC2
 
@@ -143,12 +165,15 @@
     * EBS volumes can be used normally while a snapshot is in progress
     * EBS multi-attach can be used to attach an EBS volume to multiple instances
     * io2 Block Express is the fastest, most performant type of EBS volume
+    * sc1 Cold HDD is best for sequential I/O while keeping costs low
+    * Amazon Data Lifecycle Manager can automate creation of snapshots
 * Instance Types
     * M/T - General purpose
     * C - Compute optimized
     * R/X - Memory optimized
 * Autoscaling Groups
     * Target tracking scaling will target a specific metric and scale instances based on that
+    * Install the CloudWatch agent on your instance to trigger auto-scaling on RAM utilization percent
 
 ## ECS (Fargate)
 
@@ -188,25 +213,20 @@
 * Can't stream to Athena
     * Athena is for queries
 
+## KMS
+
+* You can't store credentials in KMS
+
 ## Organizations
 
-* You can enable consolidated billing to pool resource utilization between multiple AWS accounts in an organziation
+* You can enable consolidated billing to pool resource utilization between multiple AWS accounts in an organization
     * This might lower costs
-
-## NACLs
-
-* NACL is evaluated by rule number **lowest to highest**
-* NACL is executed immediately when a matching rule is found
-* Default NACL is Allow
-* Default config for custom NACL is Deny
-* `* All Traffic Deny` final rule of default NACL cannot be modified
-* NACLs are stateless
-    * Responses to outgoing requests are subject to NACLs
 
 ## RDS
 
 * Multi-AZ deployments provide high-availability for RDS database instances
 * Multi-AZ MySQL automatically provisions a synchronus standby replica in a different AZ
+* Multi-AZ deployments will fail over from a failed instance to another in another AZ automatically
 * You can create a read replicate in a different AZ to point read workloads at
 
 ## Route 53
@@ -222,14 +242,22 @@
 * Transfer Acceleration is good for gigabyte/terabyte uploads from all over the world
 * Put CloudFront in front of S3 for simple static web hosting
 * Presigned URLs with expiry dates can prevent abuse from hotlinking to S3 resources
+* Event notification destinations for S3 buckets are: Lambda, SNS, and SQS (Does not support SES)
+* Endpoint policy can be used to create a trusted connection from a trusted VPC to trusted S3 buckets
+* To host a static website, your bucket name and DNS name must match
+* Passing `x-amz-server-side-encryption` header will use server-side encryption
 
 ## SageMaker
 
 * SageMaker has a different savings plan than the compute savings plan
 
-## Sheild
+## Security Hub
 
-* Sheild Advanced has a dedicated team to respond to attacks
+* Single pane of glass for security alerts from security related AWS services
+
+## Shield
+
+* Shield Advanced has a dedicated team to respond to attacks
 
 ## SNS
 
@@ -243,6 +271,10 @@
 * SQS Standard handles extereme performance (e.g. 50,000 requests per second)
 * SQS FIFO can't handle that same level of performance
 
+## Step-Functions
+
+* Low-code, visual workflow service
+
 ## STS
 
 * Should be used for temporary credentials
@@ -255,7 +287,17 @@
     * If one isn't specified the default is used
 * A VPC has a default security group that can be modified but not deleted
 * VPC endpoints can be configured to allow instances to hit AWS services directly, without going through the internet
+* NACLs
+    * NACL is evaluated by rule number **lowest to highest**
+    * NACL is executed immediately when a matching rule is found
+    * Default NACL is Allow
+    * Default config for custom NACL is Deny
+    * `* All Traffic Deny` final rule of default NACL cannot be modified
+    * NACLs are stateless
+        * Responses to outgoing requests are subject to NACLs
+    * NACLs can be used to block specific IPs
 
 ## WAF
 
 * A rate-based rule can limit an IP to x number of requests per y time interval
+* WAFs can be configured prevent SQL injections
